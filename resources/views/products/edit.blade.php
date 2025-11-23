@@ -38,7 +38,7 @@
                                 name="name"
                                 id="name"
                                 value="{{ old('name', $product->name) }}"
-                                class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 @error('name') border-red-500 @enderror"
+                                class="mt-1 block w-full rounded-md shadow-sm focus:border-blue-500 focus:ring-blue-500 {{ $errors->has('name') ? 'border-red-500' : 'border-gray-300' }}"
                                 placeholder="Masukkan nama produk"
                                 autofocus>
                             @error('name')
@@ -58,7 +58,7 @@
                                 value="{{ old('price', $product->price) }}"
                                 step="0.01"
                                 min="0"
-                                class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 @error('price') border-red-500 @enderror"
+                                class="mt-1 block w-full rounded-md shadow-sm focus:border-blue-500 focus:ring-blue-500 {{ $errors->has('name') ? 'border-red-500' : 'border-gray-300' }}"
                                 placeholder="Masukkan harga produk">
                             @error('price')
                                 <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
@@ -76,7 +76,7 @@
                                 id="stock"
                                 value="{{ old('stock', $product->stock) }}"
                                 min="0"
-                                class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 @error('stock') border-red-500 @enderror"
+                                class="mt-1 block w-full rounded-md shadow-sm focus:border-blue-500 focus:ring-blue-500 {{ $errors->has('name') ? 'border-red-500' : 'border-gray-300' }}"
                                 placeholder="Masukkan jumlah stok">
                             @error('stock')
                                 <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
