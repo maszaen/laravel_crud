@@ -1,0 +1,75 @@
+<x-app-layout>
+    <x-slot name="header">
+        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+            {{ __('Edit Produk') }}
+        </h2>
+    </x-slot>
+
+    <div class="py-12">
+        <div class="max-w-3xl mx-auto sm:px-6 lg:px-8">
+            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
+                <div class="p-6 text-gray-900">
+                    
+                    {{-- Form --}}
+                    <form action="{{ route('products.update', $product) }}" method="POST" class="space-y-6">
+                        @csrf
+                        @method('PUT')
+
+                        {{-- Nama Produk --}}
+                        <div>
+                            <label for="name" class="block text-sm font-medium text-gray-700">
+                                Nama Produk <span class="text-red-500">*</span>
+                            </label>
+                            <input type="text" name="name" id="name" value="{{ old('name', $product->name) }}"class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 @error('name') border-red-500 @enderror"placeholder="Masukkan nama produk"autofocus>
+                            @error('name')
+                                <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
+                            @enderror
+                        </div>
+
+                        {{-- Harga --}}
+                        <div>
+                            <label for="price" class="block text-sm font-medium text-gray-700">
+                                Harga (Rp) <span class="text-red-500">*</span>
+                            </label>
+                            <input type="number" name="price" id="price" value="{{ old('price', $product->price) }}"step="0.01"min="0"class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 @error('price') border-red-500 @enderror"placeholder="Masukkan harga produk">
+                            @error('price')
+                                <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
+                            @enderror
+                        </div>
+
+                        {{-- Stok --}}
+                        <div>
+                            <label for="stock" class="block text-sm font-medium text-gray-700">
+                                Stok <span class="text-red-500">*</span>
+                            </label>
+                            <input type="number" name="stock" id="stock" value="{{ old('stock', $product->stock) }}"min="0"class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 @error('stock') border-red-500 @enderror"placeholder="Masukkan jumlah stok">
+                            @error('stock')
+                                <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
+                            @enderror
+                        </div>
+
+                        {{-- Info Terakhir Update --}}
+                        <div class="bg-gray-50 p-4 rounded-md">
+                            <p class="text-sm text-gray-600">
+                                <span class="font-medium">Terakhir diupdate:</span> 
+                                {{ $product->updated_at->format('d F Y, H:i') }} WIB
+                            </p>
+                        </div>
+
+                        {{-- Buttons --}}
+                        <div class="flex items-center justify-between pt-4 border-t">
+                            <a href="{{ route('products.index') }}" class="inline-flex items-center px-4 py-2 bg-gray-300 border border-transparent rounded-md font-semibold text-xs text-gray-700 uppercase tracking-widest hover:bg-gray-400 focus:bg-gray-400 active:bg-gray-500 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2 transition ease-in-out duration-150">
+                                Kembali
+                            </a>
+                            <button type="submit" 
+                                    class="inline-flex items-center px-4 py-2 bg-blue-600 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-blue-700 focus:bg-blue-700 active:bg-blue-900 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition ease-in-out duration-150">
+                                Update Produk
+                            </button>
+                        </div>
+                    </form>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</x-app-layout>
