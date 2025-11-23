@@ -27,35 +27,35 @@
             @endif
 
             {{-- Card Container --}}
-            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
+            <div class="bg-white shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900">
                     
                     @if($products->count() > 0)
                         {{-- Table --}}
                         <div class="overflow-x-auto">
-                            <table class="min-w-full divide-y divide-gray-200">
-                                <thead class="bg-gray-50">
+                            <table class="min-w-full w-full border border-gray-200">
+                                <thead class="bg-gray-50 border-b border-gray-200">
                                     <tr>
-                                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                        <th scope="col" class="px-6 py-3 text-left text-sm font-medium text-gray-500 uppercase tracking-wider">
                                             No
                                         </th>
-                                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                        <th scope="col" class="px-6 py-3 text-left text-sm font-medium text-gray-500 uppercase tracking-wider">
                                             Nama Produk
                                         </th>
-                                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                        <th scope="col" class="px-6 py-3 text-left text-sm font-medium text-gray-500 uppercase tracking-wider">
                                             Harga
                                         </th>
-                                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                        <th scope="col" class="px-6 py-3 text-left text-sm font-medium text-gray-500 uppercase tracking-wider">
                                             Stok
                                         </th>
-                                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                        <th scope="col" class="px-6 py-3 text-left text-sm font-medium text-gray-500 uppercase tracking-wider">
                                             Aksi
                                         </th>
                                     </tr>
                                 </thead>
-                                <tbody class="bg-white divide-y divide-gray-200">
+                                <tbody class="bg-white">
                                     @foreach($products as $index => $product)
-                                        <tr class="hover:bg-gray-50">
+                                        <tr class="hover:bg-gray-50 border-b border-gray-200 last:border-b-0">
                                             <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
                                                 {{ $products->firstItem() + $index }}
                                             </td>
@@ -76,24 +76,31 @@
                                                 </span>
                                             </td>
                                             <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
-                                                <a href="{{ route('products.show', $product) }}" 
-                                                   class="text-blue-600 hover:text-blue-900 mr-3">
-                                                    Detail
-                                                </a>
-                                                <a href="{{ route('products.edit', $product) }}" 
-                                                   class="text-indigo-600 hover:text-indigo-900 mr-3">
-                                                    Edit
-                                                </a>
-                                                <form action="{{ route('products.destroy', $product) }}" 
-                                                      method="POST" 
-                                                      class="inline-block"
-                                                      onsubmit="return confirm('Yakin ingin menghapus produk {{ $product->name }}?')">
-                                                    @csrf
-                                                    @method('DELETE')
-                                                    <button type="submit" class="text-red-600 hover:text-red-900">
-                                                        Hapus
+                                                <div class="relative inline-block text-left" x-data="{ open: false }">
+                                                    <button type="button"
+                                                            @click="open = !open"
+                                                            class="inline-flex items-center px-2 py-1 rounded-md text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-amber-500 focus:ring-offset-2">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                                            <path d="M5 12h.01" />
+                                                            <path d="M12 12h.01" />
+                                                            <path d="M19 12h.01" />
+                                                        </svg>
                                                     </button>
-                                                </form>
+                                                    <div x-show="open"
+                                                         @click.outside="open = false"
+                                                         x-transition
+                                                         class="origin-top-right absolute right-0 mt-2 w-44 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 z-10">
+                                                        <div class="py-1 text-sm text-gray-700">
+                                                            <a href="{{ route('products.show', $product) }}" class="block px-4 py-2 hover:bg-gray-50">Detail</a>
+                                                            <a href="{{ route('products.edit', $product) }}" class="block px-4 py-2 hover:bg-gray-50">Edit</a>
+                                                            <form action="{{ route('products.destroy', $product) }}" method="POST" onsubmit="return confirm('Yakin ingin menghapus produk {{ $product->name }}?')">
+                                                                @csrf
+                                                                @method('DELETE')
+                                                                <button type="submit" class="w-full text-left px-4 py-2 text-red-600 hover:bg-red-50">Hapus</button>
+                                                            </form>
+                                                        </div>
+                                                    </div>
+                                                </div>
                                             </td>
                                         </tr>
                                     @endforeach

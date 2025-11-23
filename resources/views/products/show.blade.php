@@ -77,7 +77,11 @@
 
                     {{-- Action Buttons --}}
                     <div class="flex items-center justify-between mt-8 pt-6 border-t">
-                        <a href="{{ route('products.index') }}" class="inline-flex items-center px-4 py-2 bg-gray-200 border border-gray-300 rounded-md font-semibold text-xs text-gray-900 uppercase tracking-widest hover:bg-gray-300 focus:bg-gray-300 active:bg-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-400 focus:ring-offset-2 transition ease-in-out duration-150">
+                        @php
+                            $previous = url()->previous();
+                            $backUrl = str_contains($previous, route('dashboard')) ? route('dashboard') : route('products.index');
+                        @endphp
+                        <a href="{{ $backUrl }}" class="inline-flex items-center px-4 py-2 bg-gray-200 border border-gray-300 rounded-md font-semibold text-xs text-gray-900 uppercase tracking-widest hover:bg-gray-300 focus:bg-gray-300 active:bg-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-400 focus:ring-offset-2 transition ease-in-out duration-150">
                             Kembali
                         </a>
                         

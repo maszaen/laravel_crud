@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Product;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Validator;
 
 class ProductController extends Controller
@@ -33,17 +34,19 @@ class ProductController extends Controller
         // Validasi dengan custom messages
         $validator = Validator::make($request->all(), [
             'name' => 'required|string|max:100',
-            'price' => 'required|numeric|min:0.01',
-            'stock' => 'required|integer|min:0',
+            'price' => 'required|numeric|min:0.01|max:9999999999.99',
+            'stock' => 'required|integer|min:0|max:1000000000',
         ], [
             'name.required' => 'Nama produk wajib diisi.',
             'name.max' => 'Nama produk maksimal 100 karakter.',
             'price.required' => 'Harga produk wajib diisi.',
             'price.numeric' => 'Harga harus berupa angka.',
             'price.min' => 'Harga harus lebih besar dari 0.',
+            'price.max' => 'Harga terlalu besar, sesuaikan batas wajar.',
             'stock.required' => 'Stok produk wajib diisi.',
             'stock.integer' => 'Stok harus berupa angka bulat.',
             'stock.min' => 'Stok tidak boleh negatif.',
+            'stock.max' => 'Stok terlalu besar, sesuaikan batas wajar.',
         ]);
 
         // Jika validasi gagal
@@ -62,9 +65,10 @@ class ProductController extends Controller
             ]);
 
             return redirect()->route('products.index')
-                ->with('success', 'Produk berhasil ditambahkan! 🎉');
+                ->with('success', 'Produk berhasil ditambahkan!');
         } catch (\Exception $e) {
-            session()->flash('error', 'Terjadi kesalahan saat menyimpan produk: ' . $e->getMessage());
+            Log::error('Gagal menyimpan produk', ['message' => $e->getMessage()]);
+            session()->flash('error', 'Gagal menyimpan produk. Pastikan nilai harga dan stok sudah benar.');
             return redirect()->back()->withInput();
         }
     }
@@ -93,17 +97,19 @@ class ProductController extends Controller
         // Validasi dengan custom messages
         $validator = Validator::make($request->all(), [
             'name' => 'required|string|max:100',
-            'price' => 'required|numeric|min:0.01',
-            'stock' => 'required|integer|min:0',
+            'price' => 'required|numeric|min:0.01|max:9999999999.99',
+            'stock' => 'required|integer|min:0|max:1000000000',
         ], [
             'name.required' => 'Nama produk wajib diisi.',
             'name.max' => 'Nama produk maksimal 100 karakter.',
             'price.required' => 'Harga produk wajib diisi.',
             'price.numeric' => 'Harga harus berupa angka.',
             'price.min' => 'Harga harus lebih besar dari 0.',
+            'price.max' => 'Harga terlalu besar, sesuaikan batas wajar.',
             'stock.required' => 'Stok produk wajib diisi.',
             'stock.integer' => 'Stok harus berupa angka bulat.',
             'stock.min' => 'Stok tidak boleh negatif.',
+            'stock.max' => 'Stok terlalu besar, sesuaikan batas wajar.',
         ]);
 
         // Jika validasi gagal
@@ -122,9 +128,10 @@ class ProductController extends Controller
             ]);
 
             return redirect()->route('products.index')
-                ->with('success', 'Produk berhasil diupdate! ✨');
+                ->with('success', 'Produk berhasil diupdate!');
         } catch (\Exception $e) {
-            session()->flash('error', 'Terjadi kesalahan saat mengupdate produk: ' . $e->getMessage());
+            Log::error('Gagal mengupdate produk', ['message' => $e->getMessage()]);
+            session()->flash('error', 'Gagal mengupdate produk. Pastikan nilai harga dan stok sudah benar.');
             return redirect()->back()->withInput();
         }
     }
@@ -137,7 +144,7 @@ class ProductController extends Controller
         try {
             $product->delete();
             return redirect()->route('products.index')
-                ->with('success', 'Produk berhasil dihapus! 🗑️');
+                ->with('success', 'Produk berhasil dihapus!');
         } catch (\Exception $e) {
             session()->flash('error', 'Terjadi kesalahan saat menghapus produk: ' . $e->getMessage());
             return redirect()->back();
