@@ -17,10 +17,10 @@
             </div>
 
             {{-- Statistics Grid --}}
-            <div class="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
+            <div class="flex flex-row w-full gap-4 mb-2">
                 
                 {{-- Total Products --}}
-                <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
+                <div class="bg-white overflow-hidden w-full shadow-sm sm:rounded-lg">
                     <div class="p-6">
                         <p class="text-sm text-gray-600 mb-1">Total Produk</p>
                         <p class="text-3xl font-bold text-gray-900">{{ $totalProducts }}</p>
@@ -28,7 +28,7 @@
                 </div>
 
                 {{-- Total Stock --}}
-                <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
+                <div class="bg-white overflow-hidden w-full shadow-sm sm:rounded-lg">
                     <div class="p-6">
                         <p class="text-sm text-gray-600 mb-1">Total Stok</p>
                         <p class="text-3xl font-bold text-gray-900">{{ number_format($totalStock) }}</p>
@@ -36,7 +36,7 @@
                 </div>
 
                 {{-- Low Stock --}}
-                <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
+                <div class="bg-white overflow-hidden w-full shadow-sm sm:rounded-lg">
                     <div class="p-6">
                         <p class="text-sm text-gray-600 mb-1">Stok Menipis</p>
                         <p class="text-3xl font-bold text-yellow-600">{{ $lowStock }}</p>
@@ -44,7 +44,7 @@
                 </div>
 
                 {{-- Out of Stock --}}
-                <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
+                <div class="bg-white overflow-hidden w-full shadow-sm sm:rounded-lg">
                     <div class="p-6">
                         <p class="text-sm text-gray-600 mb-1">Habis Stok</p>
                         <p class="text-3xl font-bold text-red-600">{{ $outOfStock }}</p>
