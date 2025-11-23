@@ -59,7 +59,7 @@
                     
                     <div class="flex justify-between items-center mb-4">
                         <h3 class="text-lg font-semibold">Produk Terbaru</h3>
-                        <a href="{{ route('products.index') }}" class="text-sm text-blue-600 hover:underline">
+                        <a href="{{ route('products.index') }}" class="text-sm text-amber-700 hover:text-amber-800 font-semibold">
                             Lihat Semua
                         </a>
                     </div>
@@ -102,7 +102,7 @@
                     @else
                         <div class="text-center py-8">
                             <p class="text-gray-500 mb-4">Belum ada produk.</p>
-                            <a href="{{ route('products.create') }}" class="inline-flex items-center px-4 py-2 bg-blue-600 border border-transparent rounded-md font-semibold text-xs text-white uppercase hover:bg-blue-700">
+                            <a href="{{ route('products.create') }}" class="inline-flex items-center px-4 py-2 bg-amber-300 border border-amber-300 rounded-md font-semibold text-xs text-gray-900 uppercase hover:bg-amber-400">
                                 Tambah Produk
                             </a>
                         </div>
